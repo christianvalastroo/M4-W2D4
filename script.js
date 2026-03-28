@@ -12,10 +12,23 @@ const getBooks = async () => {
             console.log(book.title)
 
             const col = document.createElement("div")
-            col.setAttribute("class", "col-md-3")
-            booksContainer.append(col)
-        })
+            col.classList.add("col-md-3", "mb-4")
+            
+            const img = document.createElement("img")
+            img.src = book.img
+            img.alt = "libri"
+            img.classList.add("img-fluid")
 
+            const title = document.createElement("p")
+            title.textContent = book.title
+
+            const price = document.createElement("p")
+            price.textContent = book.price + "€"
+
+            col.append(img, title, price)
+            booksContainer.append(col)
+
+})
     } catch (error){
         console.error(error)
     }
