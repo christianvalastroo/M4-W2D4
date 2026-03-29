@@ -25,7 +25,19 @@ const getBooks = async () => {
             const price = document.createElement("p")
             price.textContent = book.price + "€"
 
-            col.append(img, title, price)
+            const btnDiscart = document.createElement("button")
+            btnDiscart.textContent = "Scarta"
+            btnDiscart.classList.add("btn", "btn-danger", "w-100")
+
+            btnDiscart.addEventListener("click", () => {
+                console.log("cliccato")
+                col.remove()
+            })
+
+
+
+
+            col.append(img, title, price, btnDiscart)
             booksContainer.append(col)
 
 })
