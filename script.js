@@ -4,11 +4,13 @@ const booksContainer = document.querySelector("#booksContainer")
 const cartContainer = document.querySelector("#cartContainer")
 const searchInput = document.querySelector("#searchInput")
 
+const cartTotal = document.querySelector("#cartTotal")
+let total = 0
+
 const getBooks = async () => {
     try {
         const response = await fetch(url)
         const books = await response.json()
-        console.log(books)
 
         books.forEach(book => {
             const col = document.createElement("div")
@@ -74,9 +76,13 @@ const getBooks = async () => {
                 cartItem.append(cartTitle, rightSide)
                 cartContainer.appendChild(cartItem)
 
-                card.classList.add("border", "border-success", "bg-light")
                 badge.classList.remove("d-none")
                 btnBuy.textContent = "Aggiunto"
+                btnBuy.disabled = true
+
+                total += book.price
+                cartTotal.textContent = "Totale: " + total.toFixed(2) + "€"
+                card.classList.add("border", "border-success", "bg-light")
 
                 removeBtn.addEventListener("click", () => {
                     cartItem.remove()
@@ -86,6 +92,10 @@ const getBooks = async () => {
 
                     btnBuy.textContent = "Aggiungi al carrello"
                     btnBuy.disabled = false
+
+                    total -= book.price
+                    cartTotal.textContent = "Totale: " + total.toFixed(2) + "€"
+
                 })
             })
             cardBody.append(badge, title, price, btnDiscard, btnBuy)
