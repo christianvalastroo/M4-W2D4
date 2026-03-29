@@ -2,6 +2,7 @@ const url = "https://striveschool-api.herokuapp.com/books"
 
 const booksContainer = document.querySelector("#booksContainer")
 const cartContainer = document.querySelector("#cartContainer")
+const searchInput = document.querySelector("#searchInput")
 
 const getBooks = async () => {
     try {
@@ -12,6 +13,7 @@ const getBooks = async () => {
         books.forEach(book => {
             const col = document.createElement("div")
             col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "mb-4")
+            col.setAttribute("data-title", book.title.toLowerCase())
 
             const card = document.createElement("div")
             card.classList.add("card", "h-100", "shadow-sm")
@@ -20,8 +22,6 @@ const getBooks = async () => {
             img.src = book.img
             img.alt = book.title
             img.classList.add("card-img-top")
-            img.style.height = "320px"
-            img.style.objectFit = "cover"
 
             const cardBody = document.createElement("div")
             cardBody.classList.add("card-body", "d-flex", "flex-column")
@@ -72,4 +72,19 @@ const getBooks = async () => {
     }
 }
 
+searchInput.addEventListener("input", () => {
+    const searchValue = searchInput.value.toLowerCase().trim()
+
+    const allCards = document.querySelectorAll("#booksContainer > div")
+
+    allCards.forEach(card => {
+        const bookTitle = card.getAttribute("data-title")
+
+        if (bookTitle.includes(searchValue)) {
+            card.classList.remove("d-none")
+        } else {
+            card.classList.add("d-none")
+        }
+    })
+})
 getBooks()
