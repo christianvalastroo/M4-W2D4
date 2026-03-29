@@ -2,6 +2,7 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Piccolo feedback visivo sui pulsanti. */
 .btn {
   transition: 0.2s;
 }
@@ -10,6 +11,7 @@ body {
   transform: scale(1.05);
 }
 
+/* Mantiene tutte le copertine della stessa altezza senza deformarle. */
 .card-img-top {
   height: 300px;
   object-fit: cover;
@@ -19,12 +21,14 @@ body {
   height: 100%;
 }
 
+/* Rende le card più interattive al passaggio del mouse. */
 .card:hover {
   transform: scale(1.03);
   transition: 0.2s;
   cursor: pointer;
 }
 
+/* Stile dell'icona che porta alla sezione carrello. */
 .cart-icon {
   font-size: 28px;
   color: black;
@@ -37,6 +41,7 @@ body {
   transition: 0.2s;
 }
 
+/* Scorrimento fluido verso gli anchor della pagina. */
 html {
   scroll-behavior: smooth;
 }

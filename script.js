@@ -7,6 +7,7 @@ const searchInput = document.querySelector("#searchInput")
 const cartTotal = document.querySelector("#cartTotal")
 let total = 0
 
+// Recupera i libri dall'API e costruisce dinamicamente le card nella pagina.
 const getBooks = async () => {
     try {
         const response = await fetch(url)
@@ -53,6 +54,7 @@ const getBooks = async () => {
             btnBuy.textContent = "Aggiungi al carrello"
             btnBuy.classList.add("btn", "btn-success", "w-100")
 
+            // Quando aggiungo un libro, aggiorno card, carrello e totale.
             btnBuy.addEventListener("click", () => {
                 const cartItem = document.createElement("div")
                 cartItem.classList.add("d-flex", "justify-content-between", "align-items-center", "gap-3", "bg-light", "border", "rounded-3", "px-3", "py-2", "mb-2")
@@ -84,6 +86,7 @@ const getBooks = async () => {
                 cartTotal.textContent = "Totale: " + total.toFixed(2) + "€"
                 card.classList.add("border", "border-success", "bg-light")
 
+                // Se rimuovo il libro dal carrello, ripristino anche lo stato della card.
                 removeBtn.addEventListener("click", () => {
                     cartItem.remove()
 
@@ -98,7 +101,7 @@ const getBooks = async () => {
 
                     if (cartContainer.children.length === 0) {
                         cartTotal.textContent = "Carrello vuoto"
-}
+                    }
                 })
             })
             cardBody.append(badge, title, price, btnDiscard, btnBuy)
@@ -111,6 +114,7 @@ const getBooks = async () => {
     }
 }
 
+// Filtra le card usando il titolo salvato nell'attributo data-title.
 searchInput.addEventListener("input", () => {
     const searchValue = searchInput.value.toLowerCase().trim()
 
