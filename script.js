@@ -96,6 +96,9 @@ const getBooks = async () => {
                     total -= book.price
                     cartTotal.textContent = "Totale: " + total.toFixed(2) + "€"
 
+                    if (cartContainer.children.length === 0) {
+                        cartTotal.textContent = "Carrello vuoto"
+}
                 })
             })
             cardBody.append(badge, title, price, btnDiscard, btnBuy)
