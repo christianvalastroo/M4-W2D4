@@ -1,6 +1,7 @@
 const url = "https://striveschool-api.herokuapp.com/books"
 
 const booksContainer = document.querySelector("#booksContainer")
+const cartContainer = document.querySelector("#cartContainer")
 
 const getBooks = async () => {
     try {
@@ -9,47 +10,66 @@ const getBooks = async () => {
         console.log(books)
 
         books.forEach(book => {
-            console.log(book.title)
-
             const col = document.createElement("div")
-            col.classList.add("col-md-3", "mb-4")
-            
+            col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "mb-4")
+
+            const card = document.createElement("div")
+            card.classList.add("card", "h-100", "shadow-sm")
+
             const img = document.createElement("img")
             img.src = book.img
-            img.alt = "libri"
-            img.classList.add("img-fluid")
+            img.alt = book.title
+            img.classList.add("card-img-top")
+            img.style.height = "320px"
+            img.style.objectFit = "cover"
 
-            const title = document.createElement("p")
-            title.textContent = book.title
+            const cardBody = document.createElement("div")
+            cardBody.classList.add("card-body", "d-flex", "flex-column")
+
+            const title = document.createElement("h5")
+            title.classList.add("card-title")
+            title.textContent = book.title.slice(0, 30)
 
             const price = document.createElement("p")
+            price.classList.add("card-text", "fw-bold")
             price.textContent = book.price + "€"
 
-            const btnDiscart = document.createElement("button")
-            btnDiscart.textContent = "Scarta"
-            btnDiscart.classList.add("btn", "btn-danger", "w-100")
+            const badge = document.createElement("span")
+            badge.textContent = "Aggiunto"
+            badge.classList.add("badge", "bg-success", "mb-2", "d-none")
 
-            btnDiscart.addEventListener("click", () => {
-                console.log(`scartato`)
+            const btnDiscard = document.createElement("button")
+            btnDiscard.textContent = "Scarta"
+            btnDiscard.classList.add("btn", "btn-danger", "w-100", "mb-2")
+
+            btnDiscard.addEventListener("click", () => {
                 col.remove()
             })
 
             const btnBuy = document.createElement("button")
-            btnBuy.textContent = "Compra"
-            btnBuy.classList.add("btn", "btn-success", "mt-2", "w-100")
+            btnBuy.textContent = "Aggiungi al carrello"
+            btnBuy.classList.add("btn", "btn-success", "w-100")
 
             btnBuy.addEventListener("click", () => {
-                console.log(`Libro caggiutno: ${book.title}`)
+                const cartItem = document.createElement("p")
+                cartItem.textContent = `${book.title} - ${book.price}€`
+                cartContainer.appendChild(cartItem)
+
+                card.classList.add("border", "border-success", "bg-light")
+                badge.classList.remove("d-none")
+
+                btnBuy.textContent = "Aggiunto"
+                btnBuy.disabled = true
             })
-            
-            
 
-            col.append(img, title, price, btnDiscart, btnBuy)
+            cardBody.append(badge, title, price, btnDiscard, btnBuy)
+            card.append(img, cardBody)
+            col.append(card)
             booksContainer.append(col)
-
-})
-    } catch (error){
+        })
+    } catch (error) {
         console.error(error)
     }
-} 
+}
+
 getBooks()
