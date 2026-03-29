@@ -30,14 +30,21 @@ const getBooks = async () => {
             btnDiscart.classList.add("btn", "btn-danger", "w-100")
 
             btnDiscart.addEventListener("click", () => {
-                console.log("cliccato")
+                console.log(`scartato`)
                 col.remove()
             })
 
+            const btnBuy = document.createElement("button")
+            btnBuy.textContent = "Compra"
+            btnBuy.classList.add("btn", "btn-success", "mt-2", "w-100")
 
+            btnBuy.addEventListener("click", () => {
+                console.log(`Libro caggiutno: ${book.title}`)
+            })
+            
+            
 
-
-            col.append(img, title, price, btnDiscart)
+            col.append(img, title, price, btnDiscart, btnBuy)
             booksContainer.append(col)
 
 })
