@@ -33,6 +33,7 @@ const getBooks = async () => {
             const price = document.createElement("p")
             price.classList.add("card-text", "fw-bold")
             price.textContent = book.price + "€"
+            price.style.color = "#268040"
 
             const badge = document.createElement("span")
             badge.textContent = "Aggiunto"
@@ -51,17 +52,42 @@ const getBooks = async () => {
             btnBuy.classList.add("btn", "btn-success", "w-100")
 
             btnBuy.addEventListener("click", () => {
-                const cartItem = document.createElement("p")
-                cartItem.textContent = `${book.title} - ${book.price}€`
+                const cartItem = document.createElement("div")
+                cartItem.classList.add("d-flex", "justify-content-between", "align-items-center", "gap-3", "bg-light", "border", "rounded-3", "px-3", "py-2", "mb-2")
+
+                const cartTitle = document.createElement("span")
+                cartTitle.textContent = book.title
+                cartTitle.classList.add("fw-medium", "flex-grow-1")
+
+                const rightSide = document.createElement("div")
+                rightSide.classList.add("d-flex", "align-items-center", "gap-2", "flex-shrink-0")
+
+                const cartPrice = document.createElement("span")
+                cartPrice.textContent = `${book.price}€`
+                cartPrice.classList.add("fw-bold", "text-success")
+
+                const removeBtn = document.createElement("button")
+                removeBtn.textContent = "Rimuovi"
+                removeBtn.classList.add("btn", "btn-sm", "btn-outline-danger")
+
+                rightSide.append(cartPrice, removeBtn)
+                cartItem.append(cartTitle, rightSide)
                 cartContainer.appendChild(cartItem)
 
                 card.classList.add("border", "border-success", "bg-light")
                 badge.classList.remove("d-none")
-
                 btnBuy.textContent = "Aggiunto"
-                btnBuy.disabled = true
-            })
 
+                removeBtn.addEventListener("click", () => {
+                    cartItem.remove()
+
+                    card.classList.remove("border", "border-success", "bg-light")
+                    badge.classList.add("d-none")
+
+                    btnBuy.textContent = "Aggiungi al carrello"
+                    btnBuy.disabled = false
+                })
+            })
             cardBody.append(badge, title, price, btnDiscard, btnBuy)
             card.append(img, cardBody)
             col.append(card)
