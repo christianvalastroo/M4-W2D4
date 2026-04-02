@@ -43,12 +43,17 @@ const getBooks = async () => {
             badge.classList.add("badge", "bg-success", "mb-2", "d-none")
 
             const btnDiscard = document.createElement("button")
-            btnDiscard.textContent = "Scarta"
+            btnDiscard.textContent = "Scarta / Salta"
             btnDiscard.classList.add("btn", "btn-danger", "w-100", "mb-2")
 
             btnDiscard.addEventListener("click", () => {
                 col.remove()
             })
+
+            const btnDetails = document.createElement("a")
+            btnDetails.textContent = "Dettagli"
+            btnDetails.href = `details.html?id=${book.asin}`
+            btnDetails.classList.add("btn", "btn-primary", "w-100", "mb-2")
 
             const btnBuy = document.createElement("button")
             btnBuy.textContent = "Aggiungi al carrello"
@@ -104,7 +109,7 @@ const getBooks = async () => {
                     }
                 })
             })
-            cardBody.append(badge, title, price, btnDiscard, btnBuy)
+            cardBody.append(badge, title, price, btnDiscard, btnDetails, btnBuy)
             card.append(img, cardBody)
             col.append(card)
             booksContainer.append(col)
